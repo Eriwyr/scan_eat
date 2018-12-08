@@ -2,6 +2,7 @@ package com.codev.scan_eat_api.enties;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Recipe {
@@ -13,8 +14,8 @@ public class Recipe {
     private String title;
 
     @OneToMany
-    @JoinColumn(name = "id")
-    private RecipeContent recipeContent;
+    @JoinColumn(name = "id_recipe")
+    private List<RecipeContent> recipeContent;
 
     public Recipe() {
     }
@@ -33,5 +34,13 @@ public class Recipe {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<RecipeContent> getRecipeContent() {
+        return recipeContent;
+    }
+
+    public void setRecipeContent(List<RecipeContent> recipeContent) {
+        this.recipeContent = recipeContent;
     }
 }

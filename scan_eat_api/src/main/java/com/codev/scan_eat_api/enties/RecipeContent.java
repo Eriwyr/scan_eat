@@ -1,16 +1,23 @@
 package com.codev.scan_eat_api.enties;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "recipe_ingredient")
-public class RecipeContent {
+public class RecipeContent{
 
+    @JsonIgnore
     @EmbeddedId
     private RecipeContentId recipeContentId;
+
+    @OneToOne
+    @JoinColumn(name = "id_ingredient")
+    private Ingredient Ingredient;
+
 
     @Column(name = "quantity")
     private float quatity;
@@ -33,4 +40,6 @@ public class RecipeContent {
     public void setQuatity(float quatity) {
         this.quatity = quatity;
     }
+
+
 }
