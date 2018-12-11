@@ -1,8 +1,11 @@
 package com.codev.scan_eat_api.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Recipe {

@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/")
+@ResponseBody
 public class RecipeController {
 
     final RecipeDao recipeDao;

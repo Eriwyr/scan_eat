@@ -1,17 +1,17 @@
 package com.codev.scan_eat_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 @Table(name = "recipe_ingredient")
 public class RecipeContent{
 
-    @JsonIgnore
     @EmbeddedId
     private RecipeContentId recipeContentId;
-
 
 
     @Column(name = "quantity")
@@ -36,5 +36,5 @@ public class RecipeContent{
         this.quatity = quatity;
     }
 
-
+    
 }
