@@ -1,10 +1,8 @@
-package com.codev.scan_eat_api.enties;
+package com.codev.scan_eat_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "recipe_ingredient")

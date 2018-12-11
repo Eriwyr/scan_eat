@@ -1,4 +1,4 @@
-package com.codev.scan_eat_api.enties;
+package com.codev.scan_eat_api.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
