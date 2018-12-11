@@ -14,9 +14,6 @@ public class RecipeContent{
     @EmbeddedId
     private RecipeContentId recipeContentId;
 
-    @OneToOne
-    @JoinColumn(name = "id_ingredient")
-    private Ingredient Ingredient;
 
 
     @Column(name = "quantity")

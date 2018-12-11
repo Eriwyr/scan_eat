@@ -12,7 +12,7 @@ public class RecipeContentId implements Serializable {
     private int idRecipe;
 
     @Column(name = "id_ingredient")
-    private int idIngredient;
+    private Ingredient ingredient;
 
     public RecipeContentId() {
     }
@@ -25,12 +25,12 @@ public class RecipeContentId implements Serializable {
         this.idRecipe = idRecipe;
     }
 
-    public int getIdIngredient() {
-        return idIngredient;
+    public Ingredient getIngredient() {
+        return ingredient;
     }
 
-    public void setIdIngredient(int idIngredient) {
-        this.idIngredient = idIngredient;
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
     }
 
     @Override
@@ -38,12 +38,13 @@ public class RecipeContentId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RecipeContentId that = (RecipeContentId) o;
-        return idRecipe == that.idRecipe &&
-                idIngredient == that.idIngredient;
+        return getIdRecipe() == that.getIdRecipe() &&
+                Objects.equals(getIngredient(), that.getIngredient());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRecipe, idIngredient);
+
+        return Objects.hash(getIdRecipe(), getIngredient());
     }
 }
