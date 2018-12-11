@@ -1,7 +1,7 @@
 package com.codev.scan_eat_api.controller;
 
 import com.codev.scan_eat_api.entities.Recipe;
-import com.codev.scan_eat_api.repository.RecipeDao;
+import com.codev.scan_eat_api.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -15,16 +15,16 @@ import java.util.Optional;
 @RequestMapping(path = "/")
 public class RecipeController implements ErrorController {
 
-    final RecipeDao recipeDao;
+    final RecipeRepository recipeRepository;
 
     @Autowired
-    public RecipeController(RecipeDao recipeDao) {
-        this.recipeDao = recipeDao;
+    public RecipeController(RecipeRepository recipeRepository) {
+        this.recipeRepository = recipeRepository;
     }
 
     @GetMapping(path = "/recipes")
     private Iterable<Recipe> allRecipes() {
-        return recipeDao.findAll();
+        return recipeRepository.findAll();
     }
 
 
