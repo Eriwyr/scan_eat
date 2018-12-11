@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/")
-public class RecipeController implements ErrorController {
+public class RecipeController {
 
     final RecipeDao recipeDao;
 
@@ -29,25 +29,12 @@ public class RecipeController implements ErrorController {
 
 
     @GetMapping(path = "/recipes/{id}")
-    //@RequestMapping(value = "/recipes", params = "id", method = GET)
     private ResponseEntity<Recipe> recipe(@PathVariable int id) {
         Optional<Recipe> recipe = recipeDao.findById(id);
         if(recipe.isPresent()) {
             return ResponseEntity.accepted().body(recipe.get());
         } else {
             return ResponseEntity.notFound().build();
-            //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe Not Found");
         }
-        //return recipeDao.findAll();
     }
-
-    private final static String PATH = "/error";
-    @Override
-    @RequestMapping(PATH)
-    @ResponseBody
-    public String getErrorPath() {
-        // TODO Auto-generated method stub
-        return "No Mapping Found";
-    }
-
 }
