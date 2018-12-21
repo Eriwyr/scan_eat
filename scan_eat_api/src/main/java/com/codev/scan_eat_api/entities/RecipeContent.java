@@ -36,5 +36,5 @@ public class RecipeContent{
         this.quatity = quatity;
     }
 
-    
+
 }
