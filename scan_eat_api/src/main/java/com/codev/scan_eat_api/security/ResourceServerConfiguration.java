@@ -10,7 +10,9 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @Configuration
 @EnableResourceServer
 /*@EnableResourceServer enables a Spring Security filter that authenticates requests using an incoming OAuth2 token.*/
+
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+
     /*class ResourceServerConfigurerAdapter implements ResourceServerConfigurer providing methods to adjust the access rules and paths that are protected by OAuth2 security.*/
     private static final String RESOURCE_ID = "my_rest_api";
     @Override
