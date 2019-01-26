@@ -15,16 +15,16 @@ import static java.util.Objects.requireNonNull;
 
 @Value
 @Builder
-public class User implements UserDetails {
+public class SecuredUser implements UserDetails {
     private static final long serialVersionUID = 2396654715019746670L;
     String id;
     String username;
     String password;
 
     @JsonCreator
-    User(@JsonProperty("id") final String id,
-         @JsonProperty("username") final String username,
-         @JsonProperty("password") final String password) {
+    SecuredUser(@JsonProperty("id") final String id,
+                @JsonProperty("username") final String username,
+                @JsonProperty("password") final String password) {
         super();
         this.id = requireNonNull(id);
         this.username = requireNonNull(username);

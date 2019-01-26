@@ -1,6 +1,6 @@
 package com.codev.scan_eat_api.controller;
 
-import com.codev.scan_eat_api.security.User;
+import com.codev.scan_eat_api.entities.User;
 import com.codev.scan_eat_api.security.UserAuthenticationService;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
