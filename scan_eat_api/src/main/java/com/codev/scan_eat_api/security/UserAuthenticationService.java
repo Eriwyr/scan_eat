@@ -1,6 +1,8 @@
 package com.codev.scan_eat_api.security;
 
 
+import com.codev.scan_eat_api.entities.User;
+
 import java.util.Optional;
 
 public interface UserAuthenticationService {
@@ -20,12 +22,12 @@ public interface UserAuthenticationService {
      * @param token user dao key
      * @return
      */
-    Optional<SecuredUser> findByToken(String token);
+    Optional<User> findByToken(String token);
 
     /**
      * Logs out the given input {@code securedUser}.
      *
-     * @param securedUser the securedUser to logout
+     * @param user the securedUser to logout
      */
-    void logout(SecuredUser securedUser);
+    void logout(User user);
 }

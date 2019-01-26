@@ -1,5 +1,6 @@
 package com.codev.scan_eat_api.security;
 
+import com.codev.scan_eat_api.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
@@ -21,7 +22,7 @@ final class UUIDAuthenticationService implements UserAuthenticationService {
     @Override
     public Optional<String> login(final String username, final String password) {
         final String uuid = UUID.randomUUID().toString();
-        Optional<SecuredUser> userTmp = users.findByUsername(username);
+        Optional<User> userTmp = users.findByUsername(username);
         final SecuredUser securedUser = SecuredUser
                 .builder()
                 .id(uuid)
@@ -35,12 +36,12 @@ final class UUIDAuthenticationService implements UserAuthenticationService {
     }
 
     @Override
-    public Optional<SecuredUser> findByToken(final String token) {
+    public Optional<User> findByToken(final String token) {
         return users.find(token);
     }
 
     @Override
-    public void logout(final SecuredUser securedUser) {
+    public void logout(final User user) {
 
     }
 }

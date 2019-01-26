@@ -1,5 +1,7 @@
 package com.codev.scan_eat_api.security;
 
+import com.codev.scan_eat_api.entities.User;
+
 import java.util.Optional;
 
 /**
@@ -10,9 +12,9 @@ import java.util.Optional;
  */
 public interface UserCrudService {
 
-    SecuredUser save(SecuredUser securedUser);
+    User save(SecuredUser securedUser);
 
-    Optional<SecuredUser> find(String id);
+    Optional<User> find(String id);
 
-    Optional<SecuredUser> findByUsername(String username);
+    Optional<User> findByUsername(String username);
 }
