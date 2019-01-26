@@ -20,12 +20,12 @@ public interface UserAuthenticationService {
      * @param token user dao key
      * @return
      */
-    Optional<User> findByToken(String token);
+    Optional<SecuredUser> findByToken(String token);
 
     /**
-     * Logs out the given input {@code user}.
+     * Logs out the given input {@code securedUser}.
      *
-     * @param user the user to logout
+     * @param securedUser the securedUser to logout
      */
-    void logout(User user);
+    void logout(SecuredUser securedUser);
 }

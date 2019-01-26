@@ -21,24 +21,26 @@ final class UUIDAuthenticationService implements UserAuthenticationService {
     @Override
     public Optional<String> login(final String username, final String password) {
         final String uuid = UUID.randomUUID().toString();
-        final User user = User
+        Optional<SecuredUser> userTmp = users.findByUsername(username);
+        final SecuredUser securedUser = SecuredUser
                 .builder()
                 .id(uuid)
                 .username(username)
                 .password(password)
+                .firstName(userTmp.get().getFirstName())
                 .build();
 
-        users.save(user);
+        users.save(securedUser);
         return Optional.of(uuid);
     }
 
     @Override
-    public Optional<User> findByToken(final String token) {
+    public Optional<SecuredUser> findByToken(final String token) {
         return users.find(token);
     }
 
     @Override
-    public void logout(final User user) {
+    public void logout(final SecuredUser securedUser) {
 
     }
 }

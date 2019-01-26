@@ -3,16 +3,16 @@ package com.codev.scan_eat_api.security;
 import java.util.Optional;
 
 /**
- * User security operations like login and logout, and CRUD operations on {@link User}.
+ * SecuredUser security operations like login and logout, and CRUD operations on {@link SecuredUser}.
  *
  * @author jerome
  *
  */
 public interface UserCrudService {
 
-    User save(User user);
+    SecuredUser save(SecuredUser securedUser);
 
-    Optional<User> find(String id);
+    Optional<SecuredUser> find(String id);
 
-    Optional<User> findByUsername(String username);
+    Optional<SecuredUser> findByUsername(String username);
 }

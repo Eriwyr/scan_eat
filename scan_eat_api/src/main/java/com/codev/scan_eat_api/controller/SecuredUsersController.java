@@ -1,6 +1,6 @@
 package com.codev.scan_eat_api.controller;
 
-import com.codev.scan_eat_api.security.User;
+import com.codev.scan_eat_api.security.SecuredUser;
 import com.codev.scan_eat_api.security.UserAuthenticationService;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -22,13 +22,13 @@ final class SecuredUsersController {
     UserAuthenticationService authentication;
 
     @GetMapping("/current")
-    User getCurrent(@AuthenticationPrincipal final User user) {
-        return user;
+    SecuredUser getCurrent(@AuthenticationPrincipal final SecuredUser securedUser) {
+        return securedUser;
     }
 
     @GetMapping("/logout")
-    boolean logout(@AuthenticationPrincipal final User user) {
-        authentication.logout(user);
+    boolean logout(@AuthenticationPrincipal final SecuredUser securedUser) {
+        authentication.logout(securedUser);
         return true;
     }
 }
