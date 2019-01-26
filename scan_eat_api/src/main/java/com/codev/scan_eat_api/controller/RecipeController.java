@@ -31,7 +31,7 @@ public class RecipeController {
 
     @GetMapping(path = "/recipes/{id}")
     private ResponseEntity<Recipe> recipe(@PathVariable int id) {
-        Optional<Recipe> recipe = recipeDao.findById(id);
+        Optional<Recipe> recipe = recipeRepository.findById(id);
         if(recipe.isPresent()) {
             return ResponseEntity.accepted().body(recipe.get());
         } else {
