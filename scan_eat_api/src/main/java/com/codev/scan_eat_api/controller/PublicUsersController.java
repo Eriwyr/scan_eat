@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -35,7 +37,7 @@ final class PublicUsersController {
             @RequestParam("username") final String username,
             @RequestParam("password") final String password) {
         if(users.findById(username).isPresent()) {
-            //return ResponseEntity.status(401).body("Username already exists");
+            return ResponseEntity.status(401).body("Username already exists");
         }
         User user = new User();
         user.setUsername(username);
@@ -44,15 +46,15 @@ final class PublicUsersController {
         user.setLastName("lollol");
 
         users.save(user);
-        return ResponseEntity.accepted().body(login(username, password));
+        return login(username, password);
     }
 
     @PostMapping("/login")
-    String login(
+    ResponseEntity<String> login(
             @RequestParam("username") final String username,
             @RequestParam("password") final String password) {
-        return authentication
-                .login(username, password, passwordEncoder)
-                .orElseThrow(() -> new RuntimeException("invalid login and/or password"));
+
+        Optional<String> token = authentication.login(username, password, passwordEncoder);
+        return token.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(401).body("Invalid login and/or password"));
     }
 }

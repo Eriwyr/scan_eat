@@ -26,7 +26,7 @@ final class UUIDAuthenticationService implements UserAuthenticationService {
     public Optional<String> login(final String username, final String password, PasswordEncoder passwordEncoder) {
         final String uuid = UUID.randomUUID().toString();
         Optional<User> user = users.findById(username);
-        
+
         if(user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
             user.get().setToken(uuid);
             TokenStore.saveToken(uuid, username);
