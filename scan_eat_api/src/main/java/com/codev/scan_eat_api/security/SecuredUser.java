@@ -20,15 +20,18 @@ public class User implements UserDetails {
     String id;
     String username;
     String password;
+    String firstName;
 
     @JsonCreator
     User(@JsonProperty("id") final String id,
          @JsonProperty("username") final String username,
-         @JsonProperty("password") final String password) {
+         @JsonProperty("password") final String password,
+        @JsonProperty("firstName") final String firstName) {
         super();
         this.id = requireNonNull(id);
         this.username = requireNonNull(username);
         this.password = requireNonNull(password);
+        this.firstName = requireNonNull(firstName);
     }
 
     @JsonIgnore
