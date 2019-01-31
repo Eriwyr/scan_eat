@@ -1,4 +1,4 @@
-package com.codev.scan_eat_api.controller;
+package com.codev.scan_eat_api.controller.publiccontrollers;
 
 import com.codev.scan_eat_api.entities.Recipe;
 import com.codev.scan_eat_api.repository.RecipeRepository;
@@ -11,15 +11,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/recipes")
+@RequestMapping(path = "/public/recipes")
 @ResponseBody
 
-public class RecipeController {
+public class PublicRecipeController {
 
     private final RecipeRepository recipeRepository;
 
     @Autowired
-    public RecipeController(RecipeRepository recipeRepository) {
+    public PublicRecipeController(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
     }
 

@@ -1,4 +1,4 @@
-package com.codev.scan_eat_api.controller;
+package com.codev.scan_eat_api.controller.publiccontrollers;
 
 import com.codev.scan_eat_api.entities.User;
 import com.codev.scan_eat_api.security.UserAuthenticationService;
