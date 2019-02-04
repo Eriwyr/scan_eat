@@ -54,11 +54,14 @@ final class SecuredIngredientController {
             ingredient.setName(jsonIngredient.getJSONObject("product").getString("generic_name"));
             ingredient.setLastRefresh(System.currentTimeMillis());
             ingredient.setKcal100g((int)Math.round(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getInt("energy_100g")*0.239006));
-
+            ingredient.setProteins100g(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getDouble("proteins_100g"));
+            ingredient.setSugars100g(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getDouble("sugars_100g"));
+            ingredient.setFat100g(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getDouble("fat_100g"));
+            ingredient.setSalt100g(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getDouble("salt_100g"));
+            ingredient.setFiber100g(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getDouble("fiber_100g"));
 
             ingredientRepository.save(ingredient);
             return ResponseEntity.ok().body(ingredient);
-
         } catch (IOException e) {
             e.printStackTrace();
             return GeneralResponses.internalServerError();

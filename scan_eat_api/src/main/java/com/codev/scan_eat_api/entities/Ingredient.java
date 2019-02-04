@@ -20,6 +20,22 @@ public class Ingredient {
     @Column(name = "kcal_100g")
     private int kcal100g;
 
+    @Column(name = "proteins_100g")
+    private double proteins100g;
+
+    @Column(name = "sugars_100g")
+    private double sugars100g;
+
+    @Column(name = "fat_100g")
+    private double fat100g;
+
+    @Column(name = "salt_100g")
+    private double salt100g;
+
+    @Column(name = "fiber_100g")
+    private double fiber100g;
+
+
     public Ingredient() {
     }
 
@@ -53,5 +69,45 @@ public class Ingredient {
 
     public void setKcal100g(int kcal100g) {
         this.kcal100g = kcal100g;
+    }
+
+    public double getProteins100g() {
+        return proteins100g;
+    }
+
+    public void setProteins100g(double proteins100g) {
+        this.proteins100g = proteins100g;
+    }
+
+    public double getSugars100g() {
+        return sugars100g;
+    }
+
+    public void setSugars100g(double sugars100g) {
+        this.sugars100g = sugars100g;
+    }
+
+    public double getFat100g() {
+        return fat100g;
+    }
+
+    public void setFat100g(double fat100g) {
+        this.fat100g = fat100g;
+    }
+
+    public double getSalt100g() {
+        return salt100g;
+    }
+
+    public void setSalt100g(double salt100g) {
+        this.salt100g = salt100g;
+    }
+
+    public double getFiber100g() {
+        return fiber100g;
+    }
+
+    public void setFiber100g(double fiber100g) {
+        this.fiber100g = fiber100g;
     }
 }
