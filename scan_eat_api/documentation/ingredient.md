@@ -1,13 +1,13 @@
-#Ingredient
+# Ingredient
 
-##Body
+## Body
 | Variable      | Type           | Example       |
 | ------------- |:--------------:| -------------:|
 | __barcode__   | long           | 3029330003533 |
 | name          | string         | Ingefær       |
 | kcal/100g     | integer        | 256           |
 
-##Json
+## Json
 ```json
 {
   "barcode": 3029330003533,
