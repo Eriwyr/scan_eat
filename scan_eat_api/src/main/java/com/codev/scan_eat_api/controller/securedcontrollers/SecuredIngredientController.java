@@ -31,7 +31,7 @@ import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
 
 @RestController
-@RequestMapping("ingredients")
+@RequestMapping(value={"public/ingredients", "ingredients"}) //public/ingredient is only for testing
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @AllArgsConstructor(access = PACKAGE)
 final class SecuredIngredientController {
@@ -48,12 +48,14 @@ final class SecuredIngredientController {
             {
                 return ResponseEntity.ok().body(ingredientOpt.get());
             }
-
             JSONObject jsonIngredient = Utils.getJsonResponseFromUrlStr("https://fr.openfoodfacts.org/api/v0/produit/" + barcode + ".json");
             Ingredient ingredient = new Ingredient();
             ingredient.setBarcode(jsonIngredient.getLong("code"));
-            ingredient.setLastRefresh(System.currentTimeMillis());
             ingredient.setName(jsonIngredient.getJSONObject("product").getString("generic_name"));
+            ingredient.setLastRefresh(System.currentTimeMillis());
+            ingredient.setKcal100g((int)Math.round(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getInt("energy_100g")*0.239006));
+
+
             ingredientRepository.save(ingredient);
             return ResponseEntity.ok().body(ingredient);
 

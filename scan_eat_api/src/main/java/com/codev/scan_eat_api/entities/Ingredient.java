@@ -17,6 +17,9 @@ public class Ingredient {
     @Column(name = "last_refresh")
     private long lastRefresh;
 
+    @Column(name = "kcal_100g")
+    private int kcal100g;
+
     public Ingredient() {
     }
 
@@ -44,5 +47,11 @@ public class Ingredient {
         this.lastRefresh = lastRefresh;
     }
 
+    public int getKcal100g() {
+        return kcal100g;
+    }
 
+    public void setKcal100g(int kcal100g) {
+        this.kcal100g = kcal100g;
+    }
 }
