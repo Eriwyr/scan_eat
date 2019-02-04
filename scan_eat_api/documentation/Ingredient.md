@@ -3,7 +3,7 @@
 ## Body
 | Variable      | Type           | Example       |
 | ------------- |:--------------:| -------------:|
-| __barcode__   | long           | 3029330003533 |
+| _barcode_   | long           | 3029330003533 |
 | name          | string         | Ingefær       |
 | kcal/100g     | integer        | 256           |
 
