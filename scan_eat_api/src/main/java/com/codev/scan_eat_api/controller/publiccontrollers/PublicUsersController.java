@@ -35,7 +35,8 @@ final class PublicUsersController {
     @PostMapping("/register")
     ResponseEntity<String> register(
             @RequestParam("username") final String username,
-            @RequestParam("password") final String password) {
+            @RequestParam("password") final String password)
+    {
         if(users.findById(username).isPresent()) {
             return ResponseEntity.status(401).body("Username already exists");
         }
