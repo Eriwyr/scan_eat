@@ -1,93 +1,53 @@
 package com.codev.scan_eat_api.entities.recipe;
 
-
 import com.codev.scan_eat_api.entities.Ingredient;
 import com.codev.scan_eat_api.entities.Unit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-
+import java.io.Serializable;
 
 @Entity
 @Table(name = "recipe_ingredient")
-public class RecipeContent {
+public class RecipeContent implements Serializable{
 
-    @JsonIgnore
     @EmbeddedId
-    private RecipeContentIdentity recipeContentIdentity;
-
-    @ManyToOne()
-    @JoinColumn(name = "barcode_ingredient", insertable=false, updatable=false)
-    private Ingredient ingredient;
-
-    @Transient
-    private Long barcode;
-
-    @Transient
-    private String name;
+    private RecipeContentIdentity id_casting;
 
     @Column(name = "quantity")
     private float quantity;
 
-    /*@JsonIgnore
-    @ManyToOne
-    @JoinColumn(name="id_unit",  insertable=false, updatable=false)
-    private Unit unit;
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_recipe", insertable=false, updatable=false)
+    private Recipe recipe;
 
-    @Transient
-    private Integer idUnit;
+    @JsonIgnore
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name="barcode_ingredient",  insertable=false, updatable=false)
+    private Ingredient ingredient;
 
     @Column(name = "id_unit")
-    private String unitName;*/
+    private int idUnit;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_unit", insertable=false, updatable=false)
+    private Unit unit;
+
+    /*@Column(name = "name")
+    private String name;*/
 
     public RecipeContent() {
     }
 
-    public RecipeContent(int idRecipe, long barcodeIngredient, float quantity, int idUnit) {
-        this.recipeContentIdentity = new RecipeContentIdentity(idRecipe, barcodeIngredient);
-        this.quantity = quantity;
-        //this.idUnit = idUnit;
+
+    public RecipeContentIdentity getId_casting() {
+        return id_casting;
     }
 
-    @PostLoad
-    public void initFields() {
-        this.name = this.ingredient.getName();
-        //this.unitName = this.unit.getName();
-        //this.idUnit = this.unit.getId();
-    }
-
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
-
-    public RecipeContentIdentity getRecipeContentIdentity() {
-        return recipeContentIdentity;
-    }
-
-    public void setRecipeContentIdentity(RecipeContentIdentity recipeContentIdentity) {
-        this.recipeContentIdentity = recipeContentIdentity;
-    }
-
-    public void setBarcode(long barcode) {
-        this.barcode = barcode;
-    }
-
-    public long getBarcode() {
-        return barcode;
-    }
-
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId_casting(RecipeContentIdentity id_casting) {
+        this.id_casting = id_casting;
     }
 
     public float getQuantity() {
@@ -98,7 +58,31 @@ public class RecipeContent {
         this.quantity = quantity;
     }
 
-    /*public Unit getUnit() {
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public int getIdUnit() {
+        return idUnit;
+    }
+
+    public void setIdUnit(int idUnit) {
+        this.idUnit = idUnit;
+    }
+
+    public Unit getUnit() {
         return unit;
     }
 
@@ -106,23 +90,45 @@ public class RecipeContent {
         this.unit = unit;
     }
 
-    public String getUnitName() {
-        return unitName;
+    /*public Actor getActor() {
+        return actor;
     }
 
-    public void setUnitName(String unitName) {
-        this.unitName = unitName;
+    public void setActor(Actor actor) {
+        this.actor = actor;
     }*/
 
-    public void setBarcode(Long barcode) {
-        this.barcode = barcode;
+
+
+    /*public String getName() {
+        return name;
     }
 
-    /*public Integer getIdUnit() {
-        return idUnit;
+    public void setName(String name) {
+        this.name = name;
+    }*/
+
+    @Override
+    public String toString() {
+        return "RecipeContent{" +"\n"+
+                "id_casting=" + id_casting +"\n"+
+                //", actor=" + actor +"\n"+
+                //", name='" + name + '\'' +
+                '}';
     }
 
-    public void setIdUnit(Integer idUnit) {
-        this.idUnit = idUnit;
+    /*public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }*/
+
+    /*@PreRemove
+    public void preRemove() {
+        this.actor = null;
+        this.film = null;
     }*/
 }
+
