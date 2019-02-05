@@ -1,6 +1,7 @@
 package com.codev.scan_eat_api.entities.recipe;
 
 
+import com.codev.scan_eat_api.entities.Unit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -9,16 +10,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "recipe_ingredient")
 public class RecipeContent {
-
-    /*@JsonIgnore
-    @Id
-    @Column(name = "id_recipe")
-    private int idRecipe;
-
-    @Id
-    @OneToOne()
-    @JoinColumn(name = "barcode_ingredient")
-    private Ingredient ingredient;*/
 
     @JsonIgnore
     @EmbeddedId
@@ -31,9 +22,16 @@ public class RecipeContent {
     @Transient
     private String name;
 
-
     @Column(name = "quantity")
     private float quantity;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "id_unit")
+    private Unit unit;
+
+    @Transient
+    private String unitName;
 
     public RecipeContent() {
     }
@@ -41,38 +39,33 @@ public class RecipeContent {
     @PostLoad
     public void initFields() {
         this.name = this.recipeContentIdentity.getIngredient().getName();
+        this.unitName = this.unit.getName();
     }
 
-    /*public int getIdRecipe() {
-        return idRecipe;
-    }
 
-    public void setIdRecipe(int idRecipe) {
-        this.idRecipe = idRecipe;
-    }
-
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }*/
-
-    public RecipeContentIdentity getRecipeIngredientIdentity() {
+    public RecipeContentIdentity getRecipeContentIdentity() {
         return recipeContentIdentity;
     }
 
-    public void setRecipeIngredientIdentity(RecipeContentIdentity recipeContentIdentity) {
+    public void setRecipeContentIdentity(RecipeContentIdentity recipeContentIdentity) {
         this.recipeContentIdentity = recipeContentIdentity;
     }
-
     public void setBarcode(long barcode) {
         this.barcode = barcode;
     }
 
     public long getBarcode() {
         return barcode;
+    }
+
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getQuantity() {
@@ -83,5 +76,19 @@ public class RecipeContent {
         this.quantity = quantity;
     }
 
+    public Unit getUnit() {
+        return unit;
+    }
 
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
 }
