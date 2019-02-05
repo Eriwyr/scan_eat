@@ -1,16 +1,14 @@
 package com.codev.scan_eat_api.entities.recipe;
 
-import com.codev.scan_eat_api.entities.Ingredient;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
+
 
 @Entity
 @Table(name = "recipe_ingredient")
-public class RecipeContent implements Serializable {
+public class RecipeContent {
 
-    @JsonIgnore
+    /*@JsonIgnore
     @Id
     @Column(name = "id_recipe")
     private int idRecipe;
@@ -18,7 +16,10 @@ public class RecipeContent implements Serializable {
     @Id
     @OneToOne()
     @JoinColumn(name = "barcode_ingredient")
-    private Ingredient ingredient;
+    private Ingredient ingredient;*/
+
+    @EmbeddedId
+    private RecipeContentIdentity recipeContentIdentity;
 
     @Transient
     private long barcode;
@@ -29,7 +30,7 @@ public class RecipeContent implements Serializable {
     public RecipeContent() {
     }
 
-    public int getIdRecipe() {
+    /*public int getIdRecipe() {
         return idRecipe;
     }
 
@@ -43,16 +44,28 @@ public class RecipeContent implements Serializable {
 
     public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
+    }*/
+
+    public RecipeContentIdentity getRecipeIngredientIdentity() {
+        return recipeContentIdentity;
+    }
+
+    public void setRecipeIngredientIdentity(RecipeContentIdentity recipeContentIdentity) {
+        this.recipeContentIdentity = recipeContentIdentity;
+    }
+
+    public void setBarcode(long barcode) {
+        this.barcode = barcode;
     }
 
     public long getBarcode() {
         return barcode;
     }
 
-    @PostLoad
+    /*@PostLoad
     public void initBarcode() {
         this.barcode = this.ingredient.getBarcode();
-    }
+    }*/
 
     public float getQuantity() {
         return quantity;

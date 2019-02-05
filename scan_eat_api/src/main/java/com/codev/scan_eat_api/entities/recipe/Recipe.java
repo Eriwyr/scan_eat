@@ -6,12 +6,16 @@ import java.util.List;
 
 @Entity
 public class Recipe {
-    @Column(name = "id")
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Integer id;
 
     @Column(name = "title")
     private String title;
+
+    @Column(name = "owner")
+    private String owner;
 
     @OneToMany
     @JoinColumn(name = "id_recipe")
@@ -20,11 +24,11 @@ public class Recipe {
     public Recipe() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -36,6 +40,14 @@ public class Recipe {
         this.title = title;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public List<RecipeContent> getIngredients() {
         return ingredients;
     }
@@ -43,4 +55,6 @@ public class Recipe {
     public void setIngredients(List<RecipeContent> ingredients) {
         this.ingredients = ingredients;
     }
+
+
 }

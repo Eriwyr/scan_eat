@@ -1,7 +1,12 @@
 package com.codev.scan_eat_api.controller.securedcontrollers;
 
+import com.codev.scan_eat_api.entities.Ingredient;
 import com.codev.scan_eat_api.entities.recipe.Recipe;
 import com.codev.scan_eat_api.entities.User;
+import com.codev.scan_eat_api.entities.recipe.RecipeContent;
+import com.codev.scan_eat_api.exceptions.ExceptionGenerator;
+import com.codev.scan_eat_api.exceptions.ScanEatException;
+import com.codev.scan_eat_api.repository.IngredientRepository;
 import com.codev.scan_eat_api.repository.RecipeRepository;
 import com.codev.scan_eat_api.repository.UserRepository;
 import com.codev.scan_eat_api.security.UserAuthenticationService;
@@ -11,6 +16,11 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
@@ -23,8 +33,9 @@ public class SecuredRecipeController {
     @NonNull
     private UserAuthenticationService authentication;
 
-    private final RecipeRepository recipeRepository;
     private final UserRepository userRepository;
+    private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
 
     @GetMapping("/all")
     ResponseEntity<Object> all(@AuthenticationPrincipal final User user) {
@@ -32,12 +43,39 @@ public class SecuredRecipeController {
     }
 
     @PutMapping("/create")
-    ResponseEntity<Object> create(@AuthenticationPrincipal User user, @RequestBody Recipe recipe) {
+    ResponseEntity<Object> create(@AuthenticationPrincipal User user, @RequestBody Recipe recipe) throws ScanEatException {
         if(user == null) {
             user = userRepository.findAll().get(0);
         }
 
+        List<RecipeContent> ingredients = recipe.getIngredients();
+        recipe.setIngredients(new ArrayList<>());
 
-        return ResponseEntity.ok().body(recipeRepository.findAll().get(0));
+        recipe.setId(null);
+        recipe.setOwner(user.getUsername());
+        recipeRepository.save(recipe);
+
+        recipe.setIngredients(ingredients);
+
+        initIngredients(recipe);
+        recipeRepository.save(recipe);
+        return ResponseEntity.ok().body(recipe);
+    }
+
+    private void initIngredients(Recipe recipe) throws ScanEatException {
+        for(RecipeContent content : recipe.getIngredients())
+        {
+            Optional<Ingredient> ingredientOpt = ingredientRepository.findByBarcode(content.getBarcode());
+            if(!ingredientOpt.isPresent()) {
+                ExceptionGenerator.ingredientNotFound(content.getBarcode());
+            }
+            //content.setIdRecipe(recipe.getId());
+            //content.setIngredient(ingredientOpt.get());
+        }
+    }
+
+    @ExceptionHandler({ScanEatException.class})
+    public ResponseEntity<Object> onScanEatException(HttpServletRequest req, ScanEatException ex) {
+        return ex.getResponseEntity();
     }
 }
