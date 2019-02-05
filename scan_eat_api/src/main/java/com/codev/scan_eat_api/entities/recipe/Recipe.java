@@ -17,7 +17,7 @@ public class Recipe {
     @Column(name = "owner")
     private String owner;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_recipe")
     private List<RecipeContent> ingredients;
 

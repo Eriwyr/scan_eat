@@ -1,6 +1,7 @@
 package com.codev.scan_eat_api.entities.recipe;
 
 
+import com.codev.scan_eat_api.entities.Ingredient;
 import com.codev.scan_eat_api.entities.Unit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,9 +16,12 @@ public class RecipeContent {
     @EmbeddedId
     private RecipeContentIdentity recipeContentIdentity;
 
-    @JsonIgnore
+    @ManyToOne()
+    @JoinColumn(name = "barcode_ingredient", insertable=false, updatable=false)
+    private Ingredient ingredient;
+
     @Transient
-    private long barcode;
+    private Long barcode;
 
     @Transient
     private String name;
@@ -25,23 +29,40 @@ public class RecipeContent {
     @Column(name = "quantity")
     private float quantity;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "id_unit")
+    /*@JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="id_unit",  insertable=false, updatable=false)
     private Unit unit;
 
     @Transient
-    private String unitName;
+    private Integer idUnit;
+
+    @Column(name = "id_unit")
+    private String unitName;*/
 
     public RecipeContent() {
     }
 
-    @PostLoad
-    public void initFields() {
-        this.name = this.recipeContentIdentity.getIngredient().getName();
-        this.unitName = this.unit.getName();
+    public RecipeContent(int idRecipe, long barcodeIngredient, float quantity, int idUnit) {
+        this.recipeContentIdentity = new RecipeContentIdentity(idRecipe, barcodeIngredient);
+        this.quantity = quantity;
+        //this.idUnit = idUnit;
     }
 
+    @PostLoad
+    public void initFields() {
+        this.name = this.ingredient.getName();
+        //this.unitName = this.unit.getName();
+        //this.idUnit = this.unit.getId();
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
 
     public RecipeContentIdentity getRecipeContentIdentity() {
         return recipeContentIdentity;
@@ -50,6 +71,7 @@ public class RecipeContent {
     public void setRecipeContentIdentity(RecipeContentIdentity recipeContentIdentity) {
         this.recipeContentIdentity = recipeContentIdentity;
     }
+
     public void setBarcode(long barcode) {
         this.barcode = barcode;
     }
@@ -76,7 +98,7 @@ public class RecipeContent {
         this.quantity = quantity;
     }
 
-    public Unit getUnit() {
+    /*public Unit getUnit() {
         return unit;
     }
 
@@ -90,5 +112,17 @@ public class RecipeContent {
 
     public void setUnitName(String unitName) {
         this.unitName = unitName;
+    }*/
+
+    public void setBarcode(Long barcode) {
+        this.barcode = barcode;
     }
+
+    /*public Integer getIdUnit() {
+        return idUnit;
+    }
+
+    public void setIdUnit(Integer idUnit) {
+        this.idUnit = idUnit;
+    }*/
 }

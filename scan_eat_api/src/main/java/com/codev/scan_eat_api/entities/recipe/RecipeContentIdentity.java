@@ -15,12 +15,15 @@ public class RecipeContentIdentity implements Serializable {
     @Column(name = "id_recipe")
     private int idRecipe;
 
-
-    @OneToOne()
-    @JoinColumn(name = "barcode_ingredient")
-    private Ingredient ingredient;
+    @Column(name = "barcode_ingredient")
+    private long barcodeIngredient;
 
     public RecipeContentIdentity() {
+    }
+
+    public RecipeContentIdentity(int idRecipe, long barcodeIngredient) {
+        this.idRecipe = idRecipe;
+        this.barcodeIngredient = barcodeIngredient;
     }
 
 
@@ -32,12 +35,12 @@ public class RecipeContentIdentity implements Serializable {
         this.idRecipe = idRecipe;
     }
 
-    public Ingredient getIngredient() {
-        return ingredient;
+    public long getBarcodeIngredient() {
+        return barcodeIngredient;
     }
 
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
+    public void setBarcodeIngredient(long barcodeIngredient) {
+        this.barcodeIngredient = barcodeIngredient;
     }
 
     @Override
@@ -46,11 +49,11 @@ public class RecipeContentIdentity implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         RecipeContentIdentity that = (RecipeContentIdentity) o;
         return idRecipe == that.idRecipe &&
-                Objects.equals(ingredient, that.ingredient);
+                barcodeIngredient == that.barcodeIngredient;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRecipe, ingredient);
+        return Objects.hash(idRecipe, barcodeIngredient);
     }
 }

@@ -39,6 +39,10 @@ public class Ingredient {
     public Ingredient() {
     }
 
+    public Ingredient(long barcode) {
+        this.barcode = barcode;
+    }
+
     public long getBarcode() {
         return barcode;
     }
