@@ -10,9 +10,6 @@ import java.io.Serializable;
 @Table(name = "recipe_ingredient")
 public class RecipeContent implements Serializable {
 
-    /*@EmbeddedId
-    private RecipeContentId recipeContentId;*/
-
     @JsonIgnore
     @Id
     @Column(name = "id_recipe")
@@ -31,14 +28,6 @@ public class RecipeContent implements Serializable {
 
     public RecipeContent() {
     }
-
-    /*public RecipeContentId getRecipeContentId() {
-        return recipeContentId;
-    }
-
-    public void setRecipeContentId(RecipeContentId recipeContentId) {
-        this.recipeContentId = recipeContentId;
-    }*/
 
     public int getIdRecipe() {
         return idRecipe;
