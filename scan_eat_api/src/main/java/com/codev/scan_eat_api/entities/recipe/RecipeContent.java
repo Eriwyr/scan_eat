@@ -40,7 +40,7 @@ public class RecipeContent {
 
     @PostLoad
     public void initFields() {
-        this.name = this.recipeContentIdentity.getBarcode();
+        this.name = this.recipeContentIdentity.getIngredient().getName();
     }
 
     /*public int getIdRecipe() {

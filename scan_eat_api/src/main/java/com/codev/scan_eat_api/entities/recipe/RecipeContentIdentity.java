@@ -1,7 +1,11 @@
 package com.codev.scan_eat_api.entities.recipe;
 
+import com.codev.scan_eat_api.entities.Ingredient;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -12,13 +16,9 @@ public class RecipeContentIdentity implements Serializable {
     private int idRecipe;
 
 
-    @Column(name = "barcode_ingredient")
-    private long barcodeIngredient;
-
-    public RecipeContentIdentity(int idRecipe, long barcodeIngredient) {
-        this.idRecipe = idRecipe;
-        this.barcodeIngredient = barcodeIngredient;
-    }
+    @OneToOne()
+    @JoinColumn(name = "barcode_ingredient")
+    private Ingredient ingredient;
 
     public RecipeContentIdentity() {
     }
@@ -32,12 +32,12 @@ public class RecipeContentIdentity implements Serializable {
         this.idRecipe = idRecipe;
     }
 
-    public long getBarcodeIngredient() {
-        return barcodeIngredient;
+    public Ingredient getIngredient() {
+        return ingredient;
     }
 
-    public void setBarcodeIngredient(long barcodeIngredient) {
-        this.barcodeIngredient = barcodeIngredient;
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
     }
 
     @Override
@@ -46,11 +46,11 @@ public class RecipeContentIdentity implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         RecipeContentIdentity that = (RecipeContentIdentity) o;
         return idRecipe == that.idRecipe &&
-                barcodeIngredient == that.barcodeIngredient;
+                Objects.equals(ingredient, that.ingredient);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRecipe, barcodeIngredient);
+        return Objects.hash(idRecipe, ingredient);
     }
 }
