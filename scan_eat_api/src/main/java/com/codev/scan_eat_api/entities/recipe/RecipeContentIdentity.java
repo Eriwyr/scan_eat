@@ -20,6 +20,10 @@ public class RecipeContentIdentity implements Serializable {
         this.barcodeIngredient = barcodeIngredient;
     }
 
+    public RecipeContentIdentity() {
+    }
+
+
     public int getIdRecipe() {
         return idRecipe;
     }

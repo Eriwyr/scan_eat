@@ -1,6 +1,8 @@
 package com.codev.scan_eat_api.entities.recipe;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
@@ -18,16 +20,27 @@ public class RecipeContent {
     @JoinColumn(name = "barcode_ingredient")
     private Ingredient ingredient;*/
 
+    @JsonIgnore
     @EmbeddedId
     private RecipeContentIdentity recipeContentIdentity;
 
+    @JsonIgnore
     @Transient
     private long barcode;
+
+    @Transient
+    private String name;
+
 
     @Column(name = "quantity")
     private float quantity;
 
     public RecipeContent() {
+    }
+
+    @PostLoad
+    public void initFields() {
+        this.name = this.recipeContentIdentity.getBarcode();
     }
 
     /*public int getIdRecipe() {
@@ -61,11 +74,6 @@ public class RecipeContent {
     public long getBarcode() {
         return barcode;
     }
-
-    /*@PostLoad
-    public void initBarcode() {
-        this.barcode = this.ingredient.getBarcode();
-    }*/
 
     public float getQuantity() {
         return quantity;
