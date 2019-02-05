@@ -1,4 +1,6 @@
-package com.codev.scan_eat_api.entities;
+package com.codev.scan_eat_api.entities.recipe;
+
+import com.codev.scan_eat_api.entities.Ingredient;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -14,7 +16,7 @@ public class RecipeContentId implements Serializable {
     private int idRecipe;
 
     @OneToOne()
-    @JoinColumn(name = "id_ingredient")
+    @JoinColumn(name = "barcode_ingredient")
     private Ingredient ingredient;
 
     public RecipeContentId() {

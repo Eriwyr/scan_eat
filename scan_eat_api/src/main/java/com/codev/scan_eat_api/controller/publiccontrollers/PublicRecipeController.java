@@ -1,6 +1,6 @@
 package com.codev.scan_eat_api.controller.publiccontrollers;
 
-import com.codev.scan_eat_api.entities.Recipe;
+import com.codev.scan_eat_api.entities.recipe.Recipe;
 import com.codev.scan_eat_api.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

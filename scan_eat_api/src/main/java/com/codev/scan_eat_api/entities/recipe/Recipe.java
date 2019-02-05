@@ -1,11 +1,8 @@
-package com.codev.scan_eat_api.entities;
+package com.codev.scan_eat_api.entities.recipe;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 public class Recipe {
@@ -18,7 +15,7 @@ public class Recipe {
 
     @OneToMany
     @JoinColumn(name = "id_recipe")
-    private List<RecipeContent> recipeContent;
+    private List<RecipeContent> ingredients;
 
     public Recipe() {
     }
@@ -39,11 +36,11 @@ public class Recipe {
         this.title = title;
     }
 
-    public List<RecipeContent> getRecipeContent() {
-        return recipeContent;
+    public List<RecipeContent> getIngredients() {
+        return ingredients;
     }
 
-    public void setRecipeContent(List<RecipeContent> recipeContent) {
-        this.recipeContent = recipeContent;
+    public void setIngredients(List<RecipeContent> ingredients) {
+        this.ingredients = ingredients;
     }
 }

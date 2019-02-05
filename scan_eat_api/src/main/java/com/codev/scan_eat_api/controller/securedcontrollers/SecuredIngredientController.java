@@ -3,28 +3,16 @@ package com.codev.scan_eat_api.controller.securedcontrollers;
 import com.codev.scan_eat_api.GeneralResponses;
 import com.codev.scan_eat_api.Utils;
 import com.codev.scan_eat_api.entities.Ingredient;
-import com.codev.scan_eat_api.entities.User;
 import com.codev.scan_eat_api.repository.IngredientRepository;
-import com.codev.scan_eat_api.security.UserAuthenticationService;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.sql.Date;
 import java.util.Optional;
 
 import static lombok.AccessLevel.PACKAGE;
