@@ -2,7 +2,7 @@
 
 ## Ingredients
 
-### POST /ingredients/find
+### GET /ingredients/find
 Finds an ingredient by barcode. If the ingredient does not exist in the local database orr
 the ingredient has not been refreshed for the last 2 hours, the API will update its local
 database from https://fr.openfoodfacts.org
@@ -96,5 +96,31 @@ Creates the recipe delivered in the body of the put request
 #### Returns
 OK response header or [ErrorMessage](ErrorMessage.md)
 
+
+#### Error codes
+
+
+## Units
+
+### GET /units/all
+Returns all units
+
+#### Returns
+List of [Units](Unit.md)
+
+#### Error codes
+
+
+### GET /units/find
+
+#### Example request
+/ingredients/find?id=1
+#### Parameters
+| Name          | Type           | Example       |
+| ------------- |:--------------:| -------------:|
+| id            | integer        | 1             |
+
+#### Returns
+[Unit](Unit.md) or [ErrorMessage](ErrorMessage.md)
 
 #### Error codes

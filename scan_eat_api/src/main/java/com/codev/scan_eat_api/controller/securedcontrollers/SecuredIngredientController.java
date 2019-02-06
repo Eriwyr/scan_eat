@@ -8,10 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -28,7 +26,7 @@ final class SecuredIngredientController {
     /*@NonNull
     private UserAuthenticationService authentication;*/
 
-    @PostMapping("/find")
+    @GetMapping("/find")
     ResponseEntity<Object> find(@RequestParam("barcode") final long barcode) {
         try {
             Optional<Ingredient> ingredientOpt = ingredientRepository.findByBarcode(barcode);
