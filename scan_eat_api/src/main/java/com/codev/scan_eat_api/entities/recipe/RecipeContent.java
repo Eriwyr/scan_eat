@@ -43,6 +43,9 @@ public class RecipeContent implements Serializable{
     private String ingredientName;
 
     @Transient
+    private String ingredientImgUrl;
+
+    @Transient
     private String unitName;
 
     public RecipeContent(int idRecipe, long ingredientBarcode, float quantity, int idUnit) {
@@ -62,6 +65,7 @@ public class RecipeContent implements Serializable{
     public void init() {
         this.ingredientBarcode = ingredient.getBarcode();
         this.ingredientName = ingredient.getName();
+        this.ingredientImgUrl = ingredient.getImageUrl();
         this.unitName = unit.getName();
     }
 
@@ -123,6 +127,14 @@ public class RecipeContent implements Serializable{
 
     public void setIngredientName(String ingredientName) {
         this.ingredientName = ingredientName;
+    }
+
+    public String getIngredientImgUrl() {
+        return ingredientImgUrl;
+    }
+
+    public void setIngredientImgUrl(String ingredientImgUrl) {
+        this.ingredientImgUrl = ingredientImgUrl;
     }
 
     public String getUnitName() {

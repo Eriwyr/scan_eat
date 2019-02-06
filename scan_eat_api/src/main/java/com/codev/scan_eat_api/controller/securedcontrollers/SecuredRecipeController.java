@@ -35,7 +35,6 @@ public class SecuredRecipeController {
     private final UserRepository userRepository;
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
-    private final RecipeIngredientRepositoryOld recipeIngredientRepositoryOld;
     private final UnitRepository unitRepository;
 
     @GetMapping("/all")

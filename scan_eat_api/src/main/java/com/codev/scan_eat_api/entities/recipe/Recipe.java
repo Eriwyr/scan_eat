@@ -17,6 +17,9 @@ public class Recipe {
     @Column(name = "owner")
     private String owner;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_recipe")
     private List<RecipeContent> ingredients;
@@ -46,6 +49,14 @@ public class Recipe {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public List<RecipeContent> getIngredients() {

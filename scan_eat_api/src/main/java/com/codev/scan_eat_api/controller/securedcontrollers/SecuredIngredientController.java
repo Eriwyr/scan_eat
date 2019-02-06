@@ -45,6 +45,8 @@ final class SecuredIngredientController {
             ingredient.setFat100g(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getDouble("fat_100g"));
             ingredient.setSalt100g(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getDouble("salt_100g"));
             ingredient.setFiber100g(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getDouble("fiber_100g"));
+            ingredient.setFiber100g(jsonIngredient.getJSONObject("product").getJSONObject("nutriments").getDouble("fiber_100g"));
+            ingredient.setImageUrl(jsonIngredient.getJSONObject("product").getString("image_front_url"));
 
             ingredientRepository.save(ingredient);
             return ResponseEntity.ok().body(ingredient);

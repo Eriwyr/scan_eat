@@ -35,6 +35,8 @@ public class Ingredient {
     @Column(name = "fiber_100g")
     private double fiber100g;
 
+    @Column(name = "image_url")
+    private String imageUrl;
 
     public Ingredient() {
     }
@@ -113,5 +115,13 @@ public class Ingredient {
 
     public void setFiber100g(double fiber100g) {
         this.fiber100g = fiber100g;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
