@@ -25,8 +25,7 @@ database from https://fr.openfoodfacts.org
 Returns all recipes from the authenticated user
 
 #### Returns
-List of Recipe or [ErrorMessage](ErrorMessage.md)
-[Ingredient](Ingredient.md) or [ErrorMessage](ErrorMessage.md)
+List of Recipes or [ErrorMessage](ErrorMessage.md)
 
 ```json
 [
@@ -69,4 +68,33 @@ List of Recipe or [ErrorMessage](ErrorMessage.md)
   ...
 ]
 ```
+#### Error codes
+
+
+### PUT /recipes/create
+Creates the recipe delivered in the body of the put request
+
+#### Example body
+```json
+{
+    "title": "Rød grød med fløde",
+    "ingredients": [
+        {
+            "ingredientBarcode": 3029330003533,
+            "quantity": 200,
+            "idUnit": 1
+        },
+        {
+            "ingredientBarcode": 5010477301246,
+            "quantity": 456,
+            "idUnit": 1
+        }
+    ]
+}
+```
+
+#### Returns
+OK response header or [ErrorMessage](ErrorMessage.md)
+
+
 #### Error codes
