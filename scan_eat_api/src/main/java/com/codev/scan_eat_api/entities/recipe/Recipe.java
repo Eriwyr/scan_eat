@@ -19,7 +19,7 @@ public class Recipe {
 
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_recipe")
-    private List<RecipeContentOld> ingredients;
+    private List<RecipeContent> ingredients;
 
     public Recipe() {
     }
@@ -48,11 +48,11 @@ public class Recipe {
         this.owner = owner;
     }
 
-    public List<RecipeContentOld> getIngredients() {
+    public List<RecipeContent> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<RecipeContentOld> ingredients) {
+    public void setIngredients(List<RecipeContent> ingredients) {
         this.ingredients = ingredients;
     }
 

@@ -12,49 +12,40 @@ import java.util.Objects;
 public class RecipeContentIdentity implements Serializable {
 
     @Column(name = "id_recipe")
-    private int film;
+    private int idRecipe;
 
     @Column(name = "barcode_ingredient")
-    private long actor;
-
-
-    /*@ManyToOne
-    @JoinColumn(name = "id_film")
-    private Film film;
-
-    @ManyToOne
-    @JoinColumn(name = "id_actor")
-    private Actor actor;*/
+    private long barcodeIngredient;
 
     public RecipeContentIdentity() {
     }
 
-    public RecipeContentIdentity(int film, long actor) {
-        this.film = film;
-        this.actor = actor;
+    public RecipeContentIdentity(int idRecipe, long barcodeIngredient) {
+        this.idRecipe = idRecipe;
+        this.barcodeIngredient = barcodeIngredient;
     }
 
-    public int getFilm() {
-        return film;
+    public int getIdRecipe() {
+        return idRecipe;
     }
 
-    public void setFilm(int film) {
-        this.film = film;
+    public void setIdRecipe(int idRecipe) {
+        this.idRecipe = idRecipe;
     }
 
-    public long getActor() {
-        return actor;
+    public long getBarcodeIngredient() {
+        return barcodeIngredient;
     }
 
-    public void setActor(long actor) {
-        this.actor = actor;
+    public void setBarcodeIngredient(long barcodeIngredient) {
+        this.barcodeIngredient = barcodeIngredient;
     }
 
     @Override
     public String toString() {
         return "RecipeContentIdentity{" +"\n"+
-                "film=" + film +"\n"+
-                ", actor=" + actor +"\n"+
+                "idRecipe=" + idRecipe +"\n"+
+                ", barcodeIngredient=" + barcodeIngredient +"\n"+
                 '}';
     }
 
@@ -63,13 +54,13 @@ public class RecipeContentIdentity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RecipeContentIdentity castingId = (RecipeContentIdentity) o;
-        return film == castingId.film &&
-                actor == castingId.actor;
+        return idRecipe == castingId.idRecipe &&
+                barcodeIngredient == castingId.barcodeIngredient;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(film, actor);
+        return Objects.hash(idRecipe, barcodeIngredient);
     }
 }
 

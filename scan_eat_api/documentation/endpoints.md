@@ -11,9 +11,62 @@ database from https://fr.openfoodfacts.org
 #### Parameters
 | Name          | Type           | Example       |
 | ------------- |:--------------:| -------------:|
-| col 3 is      | long           | 3029330003533 |
+| barcode     | long           | 3029330003533 |
 
 #### Returns
 [Ingredient](Ingredient.md) or [ErrorMessage](ErrorMessage.md)
 
+#### Error codes
+
+
+## Recipe
+
+### POST /recipes/all
+Returns all recipes from the authenticated user
+
+#### Returns
+List of Recipe or [ErrorMessage](ErrorMessage.md)
+[Ingredient](Ingredient.md) or [ErrorMessage](ErrorMessage.md)
+
+```json
+[
+  ...
+  {
+    "id": 77,
+    "title": "Pebernødder",
+    "owner": "aaa",
+    "ingredients": [
+        {
+            "quantity": 200,
+            "idUnit": 1,
+            "ingredientBarcode": 3029330003533,
+            "ingredientName": "Pain de mie complet",
+            "unitName": "g"
+        }
+    ]
+  },
+  {
+    "id": 78,
+    "title": "Rød grød med fløde",
+    "owner": "aaa",
+    "ingredients": [
+       {
+            "quantity": 200,
+            "idUnit": 1,
+            "ingredientBarcode": 3029330003533,
+            "ingredientName": "Pain de mie complet",
+            "unitName": "g"
+       },
+       {
+            "quantity": 456,
+            "idUnit": 1,
+            "ingredientBarcode": 5010477301246,
+            "ingredientName": "Muesli",
+            "unitName": "g"
+       }
+    ],
+  },
+  ...
+]
+```
 #### Error codes

@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface IngredientRepository extends JpaRepository<Ingredient, Integer> {
 
     Optional<Ingredient> findByBarcode(long barcode);
+
+    boolean existsByBarcode(long barcode);
 }

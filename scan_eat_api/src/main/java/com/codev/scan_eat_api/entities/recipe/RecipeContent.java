@@ -11,8 +11,9 @@ import java.io.Serializable;
 @Table(name = "recipe_ingredient")
 public class RecipeContent implements Serializable{
 
+    @JsonIgnore
     @EmbeddedId
-    private RecipeContentIdentity id_casting;
+    private RecipeContentIdentity recipeContentIdentity;
 
     @Column(name = "quantity")
     private float quantity;
@@ -35,19 +36,37 @@ public class RecipeContent implements Serializable{
     @JoinColumn(name = "id_unit", insertable=false, updatable=false)
     private Unit unit;
 
-    /*@Column(name = "name")
-    private String name;*/
+    @Transient
+    private long ingredientBarcode;
+
+    @Transient
+    private String ingredientName;
+
+    @Transient
+    private String unitName;
+
+    public RecipeContent(int idRecipe, long ingredientBarcode, float quantity, int idUnit) {
+        this.setRecipeContentIdentity(new RecipeContentIdentity(idRecipe, ingredientBarcode));
+        this.quantity = quantity;
+        this.idUnit = idUnit;
+    }
 
     public RecipeContent() {
     }
 
-
-    public RecipeContentIdentity getId_casting() {
-        return id_casting;
+    public RecipeContentIdentity getRecipeContentIdentity() {
+        return recipeContentIdentity;
     }
 
-    public void setId_casting(RecipeContentIdentity id_casting) {
-        this.id_casting = id_casting;
+    @PostLoad
+    public void init() {
+        this.ingredientBarcode = ingredient.getBarcode();
+        this.ingredientName = ingredient.getName();
+        this.unitName = unit.getName();
+    }
+
+    public void setRecipeContentIdentity(RecipeContentIdentity recipeContentIdentity) {
+        this.recipeContentIdentity = recipeContentIdentity;
     }
 
     public float getQuantity() {
@@ -90,45 +109,38 @@ public class RecipeContent implements Serializable{
         this.unit = unit;
     }
 
-    /*public Actor getActor() {
-        return actor;
+    public long getIngredientBarcode() {
+        return ingredientBarcode;
     }
 
-    public void setActor(Actor actor) {
-        this.actor = actor;
-    }*/
-
-
-
-    /*public String getName() {
-        return name;
+    public void setIngredientBarcode(long ingredientBarcode) {
+        this.ingredientBarcode = ingredientBarcode;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }*/
+    public String getIngredientName() {
+        return ingredientName;
+    }
+
+    public void setIngredientName(String ingredientName) {
+        this.ingredientName = ingredientName;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
 
     @Override
     public String toString() {
         return "RecipeContent{" +"\n"+
-                "id_casting=" + id_casting +"\n"+
+                "recipeContentIdentity=" + recipeContentIdentity +"\n"+
                 //", actor=" + actor +"\n"+
                 //", name='" + name + '\'' +
                 '}';
     }
 
-    /*public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
-    }*/
-
-    /*@PreRemove
-    public void preRemove() {
-        this.actor = null;
-        this.film = null;
-    }*/
 }
 
