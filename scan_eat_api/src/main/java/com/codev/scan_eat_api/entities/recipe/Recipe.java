@@ -25,7 +25,7 @@ public class Recipe {
 
     @Column(name = "serving_modifier")
     private float servingModifier;
-    
+
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_recipe")
     private List<RecipeContent> ingredients;
