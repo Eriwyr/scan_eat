@@ -25,7 +25,7 @@ public class Ingredient {
     private Unit unit;
 
     @Column(name = "kcal_100g")
-    private int kcal100g;
+    private double kcal100g;
 
     @Column(name = "proteins_100g")
     private double proteins100g;
@@ -92,11 +92,11 @@ public class Ingredient {
         this.unit = unit;
     }
 
-    public int getKcal100g() {
+    public double getKcal100g() {
         return kcal100g;
     }
 
-    public void setKcal100g(int kcal100g) {
+    public void setKcal100g(double kcal100g) {
         this.kcal100g = kcal100g;
     }
 

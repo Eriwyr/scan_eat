@@ -16,7 +16,7 @@ public class RecipeContent implements Serializable{
     private RecipeContentIdentity recipeContentIdentity;
 
     @Column(name = "quantity")
-    private float quantity;
+    private double quantity;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
@@ -48,7 +48,7 @@ public class RecipeContent implements Serializable{
     @Transient
     private String unitName;
 
-    public RecipeContent(int idRecipe, long ingredientBarcode, float quantity, int idUnit) {
+    public RecipeContent(int idRecipe, long ingredientBarcode, double quantity, int idUnit) {
         this.setRecipeContentIdentity(new RecipeContentIdentity(idRecipe, ingredientBarcode));
         this.quantity = quantity;
         this.idUnit = idUnit;
@@ -80,11 +80,11 @@ public class RecipeContent implements Serializable{
         this.recipeContentIdentity = recipeContentIdentity;
     }
 
-    public float getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(float quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
