@@ -17,6 +17,13 @@ public class Ingredient {
     @Column(name = "last_refresh")
     private long lastRefresh;
 
+    /*@Column(name = "quantity")
+    private String quantity;*/
+
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name="id_unit")
+    private Unit unit;
+
     @Column(name = "kcal_100g")
     private int kcal100g;
 
@@ -67,6 +74,22 @@ public class Ingredient {
 
     public void setLastRefresh(long lastRefresh) {
         this.lastRefresh = lastRefresh;
+    }
+
+    /*public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }*/
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 
     public int getKcal100g() {

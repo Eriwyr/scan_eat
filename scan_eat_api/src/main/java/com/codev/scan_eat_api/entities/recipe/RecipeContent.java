@@ -54,6 +54,13 @@ public class RecipeContent implements Serializable{
         this.idUnit = idUnit;
     }
 
+    public RecipeContent(RecipeContent rc) {
+        setRecipe(rc.getRecipe());
+        setIngredient(rc.getIngredient());
+        setQuantity(rc.getQuantity());
+        setUnit(rc.getUnit());
+    }
+
     public RecipeContent() {
     }
 
@@ -95,6 +102,9 @@ public class RecipeContent implements Serializable{
 
     public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
+        this.ingredientBarcode = ingredient.getBarcode();
+        this.ingredientName = ingredient.getName();
+        this.ingredientImgUrl = ingredient.getImageUrl();
     }
 
     public int getIdUnit() {
@@ -111,6 +121,8 @@ public class RecipeContent implements Serializable{
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+        this.idUnit = unit.getId();
+        this.unitName = unit.getName();
     }
 
     public long getIngredientBarcode() {

@@ -20,6 +20,9 @@ public class Recipe {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "serving_modifier")
+    private float servingModifier;
+
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_recipe")
     private List<RecipeContent> ingredients;
@@ -57,6 +60,14 @@ public class Recipe {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public float getServingModifier() {
+        return servingModifier;
+    }
+
+    public void setServingModifier(float servingModifier) {
+        this.servingModifier = servingModifier;
     }
 
     public List<RecipeContent> getIngredients() {

@@ -38,7 +38,6 @@ public class SecuredUnitController {
         return ResponseEntity.ok(unitRepository.findAll());
     }
 
-
     @ExceptionHandler({ScanEatException.class})
     public ResponseEntity<Object> onScanEatException(HttpServletRequest req, ScanEatException ex) {
         return ex.getResponseEntity();

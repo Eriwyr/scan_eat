@@ -3,6 +3,7 @@ package com.codev.scan_eat_api.controller.securedcontrollers;
 import com.codev.scan_eat_api.entities.recipe.Recipe;
 import com.codev.scan_eat_api.entities.User;
 import com.codev.scan_eat_api.entities.recipe.RecipeContent;
+import com.codev.scan_eat_api.entities.recipe.Serving;
 import com.codev.scan_eat_api.exceptions.ExceptionGenerator;
 import com.codev.scan_eat_api.exceptions.ScanEatException;
 import com.codev.scan_eat_api.repository.*;
@@ -11,15 +12,13 @@ import com.codev.scan_eat_api.security.UserAuthenticationService;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
@@ -85,6 +84,17 @@ public class SecuredRecipeController {
                 ExceptionGenerator.unitNotFound(content.getIdUnit());
             }
         }
+    }
+
+    @GetMapping("/serving")
+    ResponseEntity<Object> serving(@AuthenticationPrincipal User user, @RequestParam("recipeId") final int recipeId, @RequestParam("people") final int people) throws ScanEatException {
+        Optional<Recipe> recipeOpt = recipeRepository.findById(recipeId);
+        if (!recipeOpt.isPresent()) {
+            ExceptionGenerator.recipeNotFound(recipeId);
+        }
+        Recipe recipe = recipeOpt.get();
+
+        return ResponseEntity.ok(new Serving(recipe, people));
     }
 
     @ExceptionHandler({ScanEatException.class})
