@@ -1,8 +1,10 @@
 package com.codev.scan_eat_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javafx.util.Pair;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Ingredient {
@@ -44,6 +46,9 @@ public class Ingredient {
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @Transient
+    private List<Pair<Integer, String>> possibleUnits;
 
     public Ingredient() {
     }
@@ -146,5 +151,13 @@ public class Ingredient {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<Pair<Integer, String>> getPossibleUnits() {
+        return possibleUnits;
+    }
+
+    public void setPossibleUnits(List<Pair<Integer, String>> possibleUnits) {
+        this.possibleUnits = possibleUnits;
     }
 }
