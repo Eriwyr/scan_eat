@@ -1,13 +1,19 @@
 package com.codev.scan_eat_api.entities.recipe;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Serving {
     private List<RecipeContent> content;
-    private int servingSizeKcal = 500;
+
+    private int recipeId;
+
+    private int peopleAmount;
 
     public Serving(Recipe recipe, int personAmount) {
+        int servingSizeKcal = 500;
         List<RecipeContent> baseRcList = constructBaseUnitMeasures(recipe.getIngredients());
         float totalKcal = baseRcList.stream()
                 .map(i -> i.getIngredient().getKcal100g()*(i.getQuantity()/100)) //Divided by 100 because kcal100g/ml and the base units are g or ml
@@ -22,14 +28,6 @@ public class Serving {
             newRc.setUnit(rc.getUnit());
             content.add(newRc);
         }
-    }
-
-    public List<RecipeContent> getContent() {
-        return content;
-    }
-
-    public void setContent(List<RecipeContent> content) {
-        this.content = content;
     }
 
     private List<RecipeContent> constructBaseUnitMeasures(List<RecipeContent> rcList) {
@@ -48,5 +46,29 @@ public class Serving {
             }
         }
         return newRcList;
+    }
+
+    public List<RecipeContent> getContent() {
+        return content;
+    }
+
+    public void setContent(List<RecipeContent> content) {
+        this.content = content;
+    }
+
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public int getPeopleAmount() {
+        return peopleAmount;
+    }
+
+    public void setPeopleAmount(int peopleAmount) {
+        this.peopleAmount = peopleAmount;
     }
 }
