@@ -11,7 +11,7 @@ database from https://fr.openfoodfacts.org
 #### Parameters
 | Name          | Type           | Example       |
 | ------------- |:--------------:| -------------:|
-| barcode     | long           | 3029330003533 |
+| barcode     | long           | 3029330003533   |
 
 #### Returns
 [Ingredient](Ingredient.md) or [ErrorMessage](ErrorMessage.md)
@@ -71,6 +71,24 @@ List of Recipes or [ErrorMessage](ErrorMessage.md)
 #### Error codes
 
 
+### PUT /recipes/find
+Creates the recipe delivered in the body of the put request
+
+#### Example request
+/recipes/find?recipeId=84
+#### Parameters
+| Name          | Type           | Example       |
+| ------------- |:--------------:| -------------:|
+| recipeId      | int            | 84            |
+
+
+#### Returns
+[Recipe](Recipe.md) or [ErrorMessage](ErrorMessage.md)
+
+
+#### Error codes
+
+
 ### PUT /recipes/create
 Creates the recipe delivered in the body of the put request
 
@@ -99,6 +117,23 @@ OK response header or [ErrorMessage](ErrorMessage.md)
 
 
 #### Error codes
+
+### GET /recipes/serving
+Calculates the ingredient amount for a certain amount of people for a certain recipe
+
+#### Example request
+/recipes/serving?recipeId=84&people=4
+#### Parameters
+| Name          | Type           | Example       |
+| ------------- |:--------------:| -------------:|
+| recipeId      | integer        | 84            |
+| people        | integer        | 4             |
+
+#### Returns
+[Serving](Serving.md) or [ErrorMessage](ErrorMessage.md)
+
+#### Error codes
+
 
 
 ## Units

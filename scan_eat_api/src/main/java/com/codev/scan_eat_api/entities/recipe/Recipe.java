@@ -1,8 +1,11 @@
 package com.codev.scan_eat_api.entities.recipe;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Recipe {
@@ -23,11 +26,24 @@ public class Recipe {
     @Column(name = "serving_modifier")
     private float servingModifier;
 
+    @JsonIgnore
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "id_recipe")
     private List<RecipeContent> ingredients;
 
+    @Transient
+    private Map<String,String> nutritionalInfo;
+
+    @Transient
+    private Serving serving;
+
     public Recipe() {
+    }
+
+    @PostLoad
+    public void initRecipe() {
+        this.serving = new Serving(this, 4);
+        this.nutritionalInfo = new Serving(this, 4).getNutritionalInfo();
     }
 
     public Integer getId() {
@@ -78,5 +94,19 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
+    public Serving getServing() {
+        return serving;
+    }
 
+    public void setServing(Serving serving) {
+        this.serving = serving;
+    }
+
+    public Map<String, String> getNutritionalInfo() {
+        return nutritionalInfo;
+    }
+
+    public void setNutritionalInfo(Map<String, String> nutritionalInfo) {
+        this.nutritionalInfo = nutritionalInfo;
+    }
 }

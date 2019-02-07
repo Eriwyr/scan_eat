@@ -35,13 +35,24 @@ public class SecuredRecipeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final UnitRepository unitRepository;
+    private final RecipeIngredientRepository recipeIngredientRepository;
 
     @GetMapping("/all")
     ResponseEntity<Object> all(@AuthenticationPrincipal final User user) {
         return ResponseEntity.ok().body(recipeRepository.findAll());
     }
 
-    final private RecipeIngredientRepository recipeIngredientRepository;
+    @GetMapping("/find")
+    ResponseEntity<Object> find(@AuthenticationPrincipal final User user, @RequestParam("recipeId") final int recipeId) throws ScanEatException {
+        Optional<Recipe> recipeOpt = recipeRepository.findById(recipeId);
+        if(!recipeOpt.isPresent()) {
+            ExceptionGenerator.recipeNotFound(recipeId);
+        }
+        return ResponseEntity.ok(recipeOpt.get());
+    }
+
+
+
 
     @PutMapping("/create")
     ResponseEntity<Object> create(@AuthenticationPrincipal User user, @RequestBody Recipe recipe) throws ScanEatException {
