@@ -1,10 +1,12 @@
-package com.codev.scan_eat_api.entities;
+package com.codev.scan_eat_api.entities.ingredient;
 
+import com.codev.scan_eat_api.entities.Unit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.util.Pair;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Ingredient {
@@ -47,6 +49,14 @@ public class Ingredient {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @JsonIgnore
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name = "barcode_ingredient")
+    private List<IngredientAdditive> additives;
+
+    @Transient
+    private List<String> additiveTags;
+
     @Transient
     private List<Pair<Integer, String>> possibleUnits;
 
@@ -55,6 +65,11 @@ public class Ingredient {
 
     public Ingredient(long barcode) {
         this.barcode = barcode;
+    }
+
+    @PostLoad
+    public void initIngredient() {
+        this.additiveTags = this.additives.stream().map(a -> a.getAdditive().getId()).collect(Collectors.toList());
     }
 
     public long getBarcode() {
@@ -151,6 +166,23 @@ public class Ingredient {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<IngredientAdditive> getAdditives() {
+        return additives;
+    }
+
+    public void setAdditives(List<IngredientAdditive> additives) {
+        this.additives = additives;
+        this.additiveTags = this.additives.stream().map(a -> a.getAdditive().getId()).collect(Collectors.toList());
+    }
+
+    public List<String> getAdditiveTags() {
+        return additiveTags;
+    }
+
+    public void setAdditiveTags(List<String> additiveTags) {
+        this.additiveTags = additiveTags;
     }
 
     public List<Pair<Integer, String>> getPossibleUnits() {

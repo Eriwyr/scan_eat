@@ -2,7 +2,7 @@ package com.codev.scan_eat_api.controller.securedcontrollers;
 
 import com.codev.scan_eat_api.GeneralResponses;
 import com.codev.scan_eat_api.Utils;
-import com.codev.scan_eat_api.entities.Ingredient;
+import com.codev.scan_eat_api.entities.ingredient.Ingredient;
 import com.codev.scan_eat_api.entities.Unit;
 import com.codev.scan_eat_api.exceptions.ExceptionGenerator;
 import com.codev.scan_eat_api.exceptions.ScanEatException;
@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PACKAGE;

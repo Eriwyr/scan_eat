@@ -1,6 +1,6 @@
 package com.codev.scan_eat_api.entities.recipe;
 
-import com.codev.scan_eat_api.entities.Ingredient;
+import com.codev.scan_eat_api.entities.ingredient.Ingredient;
 import com.codev.scan_eat_api.entities.Unit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "recipe_ingredient")
-public class RecipeContent implements Serializable{
+public class RecipeContent implements Serializable {
 
     @JsonIgnore
     @EmbeddedId
