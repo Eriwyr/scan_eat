@@ -44,12 +44,25 @@ public class SecuredIngredientController {
     /*@NonNull
     private UserAuthenticationService authentication;*/
 
+    @GetMapping("/updateAllIngredients")
+    ResponseEntity<Object> updateAllIngredients() {
+        ingredientRepository.findAll().forEach(i -> {
+            try {
+                find(i.getBarcode());
+            } catch (ScanEatException e) {
+                e.printStackTrace();
+            }
+        });
+        return ResponseEntity.ok().build();
+    }
+
+
     @GetMapping("/find")
     ResponseEntity<Object> find(@RequestParam("barcode") final long barcode) throws ScanEatException {
         try {
             Optional<Ingredient> ingredientOpt = ingredientRepository.findByBarcode(barcode);
             Ingredient ingredient = null;
-            if(ingredientOpt.isPresent() && ingredientOpt.get().getLastRefresh()+timeBetweenRefreshes > System.currentTimeMillis())
+            if(false && ingredientOpt.isPresent() && ingredientOpt.get().getLastRefresh()+timeBetweenRefreshes > System.currentTimeMillis())
             {
                 ingredient = ingredientOpt.get();
             }
@@ -67,6 +80,14 @@ public class SecuredIngredientController {
                         ingredient.setUnit(unit.get());
                     } else {
                         ExceptionGenerator.ingredientUnitMappingNotFound(barcode, quantityStr);
+                    }
+
+                    if(jsonIngredient.getJSONObject("product").has("nutrition_grades")) {
+                        String nutriscore = jsonIngredient.getJSONObject("product").getString("nutrition_grades");
+                        if(nutriscore.length() > 0) {
+                            ingredient.setNutriscore(jsonIngredient.getJSONObject("product").getString("nutrition_grades").toUpperCase().charAt(0));
+                        }
+
                     }
 
                     JSONObject nutriments = jsonIngredient.getJSONObject("product").getJSONObject("nutriments");
@@ -90,7 +111,6 @@ public class SecuredIngredientController {
                                 if(!additiveRepository.existsById(additiveId)) {
                                     additiveRepository.save(new Additive(additiveId));
                                 }
-                                System.out.println(additiveId);
                                 finalIngredient.getAdditives().add(new IngredientAdditive(finalIngredient.getBarcode(), additiveId));
                                 finalIngredient.getAdditiveTags().add(additiveId);
                             });

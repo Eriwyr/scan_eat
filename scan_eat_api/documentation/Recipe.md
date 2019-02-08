@@ -10,6 +10,7 @@
 | imageUrl        | string                     | 84                            |
 | servingModifier | double                     | 1.2                           |
 | additiveTags    | List<String>               | ["E250", "E300", "E450", ...] |
+| servingModifier | Character                  | 'B'                           |
 | nutritionalInfo | Map<String,String>         | {"kcal100g":134.45,...}       |
 | serving         | [Serving](ErrorMessage.md) | See [Serving](Serving.md)     |
 
@@ -26,6 +27,7 @@
           "E300",
           "E450"
     ],
+    "nutriscore": "B",
     "nutritionalInfo": {
         "fat100g": "172.63 g",
         "salt100g": "18.94 g",

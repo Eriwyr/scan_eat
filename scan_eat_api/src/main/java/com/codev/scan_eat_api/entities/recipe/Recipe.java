@@ -35,6 +35,9 @@ public class Recipe {
     private Map<String,String> nutritionalInfo;
 
     @Transient
+    private Character nutriscore;
+
+    @Transient
     private List<String> additiveTags;
 
     @Transient
@@ -46,7 +49,8 @@ public class Recipe {
     @PostLoad
     public void initRecipe() {
         this.serving = new Serving(this, 4);
-        this.nutritionalInfo = new Serving(this, 4).getNutritionalInfo();
+        this.nutritionalInfo = this.serving.getNutritionalInfo();
+        this.nutriscore = this.serving.getNutriscore();
         updateAdditiveTags();
     }
 
@@ -113,6 +117,14 @@ public class Recipe {
 
     public void setNutritionalInfo(Map<String, String> nutritionalInfo) {
         this.nutritionalInfo = nutritionalInfo;
+    }
+
+    public Character getNutriscore() {
+        return nutriscore;
+    }
+
+    public void setNutriscore(Character nutriscore) {
+        this.nutriscore = nutriscore;
     }
 
     public List<String> getAdditiveTags() {

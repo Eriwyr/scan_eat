@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.util.Pair;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +29,9 @@ public class Ingredient {
     @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name="id_unit")
     private Unit unit;
+
+    @Column(name = "nutriscore")
+    private Character nutriscore;
 
     @Column(name = "kcal_100g")
     private double kcal100g;
@@ -110,6 +115,20 @@ public class Ingredient {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public Character getNutriscore() {
+        return nutriscore;
+    }
+
+    public void setNutriscore(Character nutriscore) {
+        this.nutriscore = nutriscore;
+    }
+
+    public Integer getNutriscoreInt() {
+        if(nutriscore == null) {return null;}
+        List<Character> nutriScores = Arrays.asList('A', 'B', 'C', 'D', 'E');
+        return nutriScores.indexOf(nutriscore)+1;
     }
 
     public double getKcal100g() {

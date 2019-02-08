@@ -3,10 +3,7 @@ package com.codev.scan_eat_api.entities.recipe;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,6 +16,9 @@ public class Serving {
 
     @JsonIgnore
     private Map<String, String> nutritionalInfo;
+
+    @JsonIgnore
+    private Character nutriscore;
 
     public Serving(Recipe recipe, int personAmount) {
         this.recipe = recipe;
@@ -47,6 +47,7 @@ public class Serving {
         }
 
         updateNutritionalInfo();
+        updateNutriscore();
     }
 
     public void updateNutritionalInfo() {
@@ -99,6 +100,36 @@ public class Serving {
                                 .collect(Collectors.toList())
                 )) + " g"
         );
+    }
+
+    public void updateNutriscore() {
+        List<RecipeContent> baseRcList = constructBaseUnitMeasures(recipe.getIngredients());
+        baseRcList = baseRcList.stream()
+                .filter(o -> o.getIngredient().getNutriscore() != null)
+                .collect(Collectors.toList());
+
+        if(baseRcList.size() == 0) {
+            this.nutriscore = null;
+        }
+
+        double maxQuantity = baseRcList.stream()
+                .map(RecipeContent::getQuantity)
+                .reduce(0d, (q1, q2) -> q1 + q2);
+
+        int hihi = baseRcList.get(0).getIngredient().getNutriscoreInt();
+        List<Double> lol = baseRcList.stream()
+                .map(o -> o.getIngredient().getNutriscoreInt() * (o.getQuantity()/maxQuantity))
+                .collect(Collectors.toList());
+
+        double nutriScoreNumber = baseRcList.stream()
+                .map(o -> o.getIngredient().getNutriscoreInt() * (o.getQuantity()/maxQuantity))
+                .reduce(0d, (n1,n2) -> n1+n2);
+
+        List<Character> nutriScores = Arrays.asList('A', 'B', 'C', 'D', 'E');
+        int nutriScoreInt = (int)Math.round(nutriScoreNumber);
+        if(nutriScoreInt <= 0) {nutriScoreInt = 1;}
+        this.nutriscore = nutriScores.get(nutriScoreInt-1);
+
     }
 
     private List<RecipeContent> constructBaseUnitMeasures(List<RecipeContent> rcList) {
@@ -158,5 +189,13 @@ public class Serving {
 
     public void setNutritionalInfo(Map<String, String> nutritionalInfo) {
         this.nutritionalInfo = nutritionalInfo;
+    }
+
+    public Character getNutriscore() {
+        return nutriscore;
+    }
+
+    public void setNutriscore(Character nutriscore) {
+        this.nutriscore = nutriscore;
     }
 }
