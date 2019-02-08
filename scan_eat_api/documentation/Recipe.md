@@ -10,7 +10,7 @@
 | imageUrl        | string                     | 84                            |
 | servingModifier | double                     | 1.2                           |
 | additiveTags    | List<String>               | ["E250", "E300", "E450", ...] |
-| servingModifier | Character                  | 'B'                           |
+| nutriscore      | Character                  | 'B'                           |
 | nutritionalInfo | Map<String,String>         | {"kcal100g":134.45,...}       |
 | serving         | [Serving](ErrorMessage.md) | See [Serving](Serving.md)     |
 
