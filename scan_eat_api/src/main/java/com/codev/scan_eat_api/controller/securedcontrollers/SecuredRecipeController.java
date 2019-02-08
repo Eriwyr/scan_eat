@@ -96,7 +96,7 @@ public class SecuredRecipeController {
         recipeRepository.flush();
         recipeIngredientRepository.flush();
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("{id: " + recipe.getId() + "}");
     }
 
     private void verifyRecipeContent(Recipe recipe) throws ScanEatException {
