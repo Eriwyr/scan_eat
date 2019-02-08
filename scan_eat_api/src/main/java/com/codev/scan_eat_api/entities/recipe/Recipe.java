@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Entity
 public class Recipe {
@@ -34,6 +35,9 @@ public class Recipe {
     private Map<String,String> nutritionalInfo;
 
     @Transient
+    private List<String> additiveTags;
+
+    @Transient
     private Serving serving;
 
     public Recipe() {
@@ -43,6 +47,15 @@ public class Recipe {
     public void initRecipe() {
         this.serving = new Serving(this, 4);
         this.nutritionalInfo = new Serving(this, 4).getNutritionalInfo();
+        updateAdditiveTags();
+    }
+
+    private void updateAdditiveTags() {
+        this.additiveTags = getIngredients().stream()
+                .flatMap(rc -> rc.getIngredient().getAdditives().stream()
+                        .map(a -> a.getAdditive().getId()))
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public Integer getId() {
@@ -91,14 +104,7 @@ public class Recipe {
 
     public void setIngredients(List<RecipeContent> ingredients) {
         this.ingredients = ingredients;
-    }
-
-    public Serving getServing() {
-        return serving;
-    }
-
-    public void setServing(Serving serving) {
-        this.serving = serving;
+        updateAdditiveTags();
     }
 
     public Map<String, String> getNutritionalInfo() {
@@ -107,5 +113,21 @@ public class Recipe {
 
     public void setNutritionalInfo(Map<String, String> nutritionalInfo) {
         this.nutritionalInfo = nutritionalInfo;
+    }
+
+    public List<String> getAdditiveTags() {
+        return additiveTags;
+    }
+
+    public void setAdditiveTags(List<String> additiveTags) {
+        this.additiveTags = additiveTags;
+    }
+
+    public Serving getServing() {
+        return serving;
+    }
+
+    public void setServing(Serving serving) {
+        this.serving = serving;
     }
 }

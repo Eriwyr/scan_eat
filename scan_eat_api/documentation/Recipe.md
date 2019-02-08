@@ -2,14 +2,16 @@
 
 
 ## Body
-| Variable        | Type                       | Example                   |
-| -------------   |:--------------------------:| -------------------------:|
-| id              | int                        | 84                        |
-| title           | string                     | 84                        |
-| owner           | string                     | 84                        |
-| imageUrl        | string                     | 84                        |
-| nutritionalInfo | Map<String,String>         | {"kcal100g":134.45,...}   |
-| serving         | [Serving](ErrorMessage.md) | See [Serving](Serving.md) |
+| Variable        | Type                       | Example                       |
+| -------------   |:--------------------------:| -----------------------------:|
+| id              | int                        | 84                            |
+| title           | string                     | 84                            |
+| owner           | string                     | 84                            |
+| imageUrl        | string                     | 84                            |
+| servingModifier | double                     | 1.2                           |
+| additiveTags    | List<String>               | ["E250", "E300", "E450", ...] |
+| nutritionalInfo | Map<String,String>         | {"kcal100g":134.45,...}       |
+| serving         | [Serving](ErrorMessage.md) | See [Serving](Serving.md)     |
 
 ## Json
 ```json
@@ -18,7 +20,20 @@
     "title": "Svensk pølseret",
     "owner": "aaa",
     "imageUrl": "https://www.dk-kogebogen.dk/billeder-opskrifter/vis_billede_stor_slider.php?id=3084&billede=4",
-    "servingModifier": 1,
+    "servingModifier": 1.2,
+    "additiveTags": [
+          "E250",
+          "E300",
+          "E450"
+    ],
+    "nutritionalInfo": {
+        "fat100g": "172.63 g",
+        "salt100g": "18.94 g",
+        "proteins100g": "86.81 g",
+        "fiber100g": "2.16 g",
+        "kcal100g": "2783.24 kcal",
+        "sugars100g": "10.59 g"
+    },
     "ingredients": [
         {
             "quantity": 450,
@@ -85,14 +100,6 @@
             "unitName": "g"
         }
     ],
-    "nutritionalInfo": {
-        "fat100g": "172.63 g",
-        "salt100g": "18.94 g",
-        "proteins100g": "86.81 g",
-        "fiber100g": "2.16 g",
-        "kcal100g": "2783.24 kcal",
-        "sugars100g": "10.59 g"
-    },
     "serving": {
         "recipeId": 84,
         "peopleAmount": 4,
