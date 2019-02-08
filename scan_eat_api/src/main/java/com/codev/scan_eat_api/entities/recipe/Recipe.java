@@ -57,7 +57,7 @@ public class Recipe {
         updateAdditiveTags();
     }
 
-    private void updateAdditiveTags() {
+    public void updateAdditiveTags() {
         this.additiveTags = getIngredients().stream()
                 .flatMap(rc -> rc.getIngredient().getAdditives().stream()
                         .map(a -> a.getAdditive().getId()))
@@ -111,7 +111,6 @@ public class Recipe {
 
     public void setIngredients(List<RecipeContent> ingredients) {
         this.ingredients = ingredients;
-        updateAdditiveTags();
     }
 
     public boolean isDeleted() {
