@@ -115,11 +115,7 @@ public class Serving {
         double maxQuantity = baseRcList.stream()
                 .map(RecipeContent::getQuantity)
                 .reduce(0d, (q1, q2) -> q1 + q2);
-
-        int hihi = baseRcList.get(0).getIngredient().getNutriscoreInt();
-        List<Double> lol = baseRcList.stream()
-                .map(o -> o.getIngredient().getNutriscoreInt() * (o.getQuantity()/maxQuantity))
-                .collect(Collectors.toList());
+        
 
         double nutriScoreNumber = baseRcList.stream()
                 .map(o -> o.getIngredient().getNutriscoreInt() * (o.getQuantity()/maxQuantity))

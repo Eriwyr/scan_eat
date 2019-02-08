@@ -3,6 +3,7 @@ package com.codev.scan_eat_api.controller.securedcontrollers;
 import com.codev.scan_eat_api.entities.recipe.Recipe;
 import com.codev.scan_eat_api.entities.User;
 import com.codev.scan_eat_api.entities.recipe.RecipeContent;
+import com.codev.scan_eat_api.entities.recipe.RecipeContentIdentity;
 import com.codev.scan_eat_api.entities.recipe.Serving;
 import com.codev.scan_eat_api.exceptions.ExceptionGenerator;
 import com.codev.scan_eat_api.exceptions.ScanEatException;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +53,22 @@ public class SecuredRecipeController {
         return ResponseEntity.ok(recipeOpt.get());
     }
 
+    @Transactional
+    @GetMapping("/delete")
+    ResponseEntity<Object> delete(@AuthenticationPrincipal final User user, @RequestParam("recipeId") final int recipeId) throws ScanEatException {
+        Optional<Recipe> recipeOpt = recipeRepository.findById(recipeId);
+        if(!recipeOpt.isPresent()) {
+            ExceptionGenerator.recipeNotFound(recipeId);
+        }
+        Recipe recipe = recipeOpt.get();
 
+        recipeIngredientRepository.deleteByRecipe(recipe);
+        /*for(RecipeContent rc : recipe.getIngredients()) {
+            recipeIngredientRepository.delete(new RecipeContentIdentity(recipe.getId(), rc.getIngredientBarcode()));
+        }*/
+        recipeRepository.delete(recipe);
+        return ResponseEntity.ok().build();
+    }
 
 
     @PutMapping("/create")
