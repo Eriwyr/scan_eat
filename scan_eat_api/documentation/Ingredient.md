@@ -1,17 +1,19 @@
 # Ingredient
 
 ## Body
-| Variable      | Type                   | Example       |
-| ------------- |:----------------------:| -------------:|
-| _barcode_     | long                   | 3029330003533 |
-| name          | string                 | Pain de mie   |
-| kcal100g      | integer                | 256           |
-| proteins100g  | double                 | 8.9           |
-| sugars100g    | double                 | 7.2           |
-| fat100g       | double                 | 4.5           |
-| salt100g      | double                 | 1.2           |
-| fiber100g     | double                 | 5.5           |
-| possibleUnits | Pair<Integer,String>[] | ...           |
+| Variable      | Type                   | Example               |
+| ------------- |:----------------------:| ---------------------:|
+| _barcode_     | long                   | 3029330003533         |
+| name          | string                 | Pain de mie           |
+| kcal100g      | integer                | 256                   |
+| proteins100g  | double                 | 8.9                   |
+| sugars100g    | double                 | 7.2                   |
+| fat100g       | double                 | 4.5                   |
+| salt100g      | double                 | 1.2                   |
+| fiber100g     | double                 | 5.5                   |
+| imageUrl      | string                 | Pain de mie           |
+| additiveTags  | List<String>           | ["E250", "E450", ...] |                               ]   |
+| possibleUnits | Pair<Integer,String>[] | ...                   |
 
 ## Json
 ```json
