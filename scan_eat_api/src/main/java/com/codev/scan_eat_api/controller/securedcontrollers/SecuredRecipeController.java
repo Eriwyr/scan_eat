@@ -67,20 +67,57 @@ public class SecuredRecipeController {
         return ResponseEntity.ok().build();
     }
 
-
+    @Transactional
     @PutMapping("/create")
     ResponseEntity<Object> create(@AuthenticationPrincipal User user, @RequestBody Recipe recipe) throws ScanEatException {
         if(user == null) {
             user = userRepository.findAll().get(0);
         }
+        recipe.setId(null);
+        return createOrUpdate(user, recipe);
+    }
+
+    private void verifyRecipeContent(Recipe recipe) throws ScanEatException {
+        for(RecipeContent content : recipe.getIngredients())
+        {
+            if(!ingredientRepository.existsByBarcode(content.getIngredientBarcode())) {
+                ExceptionGenerator.ingredientNotFound(content.getIngredientBarcode());
+            }
+            if(!unitRepository.existsById(content.getIdUnit())) {
+                ExceptionGenerator.unitNotFound(content.getIdUnit());
+            }
+        }
+    }
+
+    @Transactional
+    @PutMapping("/update")
+    ResponseEntity<Object> update(@AuthenticationPrincipal User user, @RequestBody Recipe recipe) throws ScanEatException {
+        if(user == null) {
+            user = userRepository.findAll().get(0);
+        }
+        Optional<Recipe> recipeOpt = recipeRepository.findById(recipe.getId());
+        if (!recipeOpt.isPresent()) {
+            ExceptionGenerator.recipeNotFound(recipe.getId());
+        }
+
+        Recipe dbRecipe = recipeRepository.findById(recipe.getId()).get();
+        dbRecipe.setDeleted(true);
+        recipeRepository.save(dbRecipe);
+
+
+        return createOrUpdate(user, recipe);
+    }
+
+    @Transactional
+    protected ResponseEntity<Object> createOrUpdate(User user, Recipe recipe) throws ScanEatException {
         verifyRecipeContent(recipe);
 
         List<RecipeContent> ingredients = recipe.getIngredients();
         recipe.setIngredients(new ArrayList<>());
-        recipe.setId(null);
         recipe.setOwner(user.getUsername());
+        recipe.setId(null);
         recipeRepository.saveAndFlush(recipe);
-
+        recipeIngredientRepository.deleteByRecipe(recipe);
         for(RecipeContent content : ingredients)
         {
             recipeIngredientRepository.save(
@@ -97,18 +134,6 @@ public class SecuredRecipeController {
         recipeIngredientRepository.flush();
 
         return ResponseEntity.ok("{id: " + recipe.getId() + "}");
-    }
-
-    private void verifyRecipeContent(Recipe recipe) throws ScanEatException {
-        for(RecipeContent content : recipe.getIngredients())
-        {
-            if(!ingredientRepository.existsByBarcode(content.getIngredientBarcode())) {
-                ExceptionGenerator.ingredientNotFound(content.getIngredientBarcode());
-            }
-            if(!unitRepository.existsById(content.getIdUnit())) {
-                ExceptionGenerator.unitNotFound(content.getIdUnit());
-            }
-        }
     }
 
     @GetMapping("/serving")

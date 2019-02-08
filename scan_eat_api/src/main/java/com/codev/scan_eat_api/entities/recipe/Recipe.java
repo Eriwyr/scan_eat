@@ -9,10 +9,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Entity
+@Table(name="recipe")
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "title")
@@ -27,7 +28,7 @@ public class Recipe {
     @Column(name = "serving_modifier")
     private float servingModifier;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.REMOVE)
     @JoinColumn(name = "id_recipe")
     private List<RecipeContent> ingredients;
 
