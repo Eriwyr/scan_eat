@@ -31,6 +31,9 @@ public class Recipe {
     @JoinColumn(name = "id_recipe")
     private List<RecipeContent> ingredients;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     @Transient
     private Map<String,String> nutritionalInfo;
 
@@ -109,6 +112,14 @@ public class Recipe {
     public void setIngredients(List<RecipeContent> ingredients) {
         this.ingredients = ingredients;
         updateAdditiveTags();
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public Map<String, String> getNutritionalInfo() {

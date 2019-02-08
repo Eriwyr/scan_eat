@@ -45,7 +45,6 @@ Creates the recipe delivered in the body of the put request
 #### Returns
 [Recipe](Recipe.md) or [ErrorMessage](ErrorMessage.md)
 
-
 #### Error codes
 
 
@@ -74,6 +73,23 @@ Creates the recipe delivered in the body of the put request
 
 #### Returns
 OK response header or [ErrorMessage](ErrorMessage.md)
+
+
+#### Error codes
+
+### DELETE /recipes/delete
+Deletes a recipe
+
+#### Example request
+/recipes/delete?recipeId=84
+#### Parameters
+| Name          | Type           | Example       |
+| ------------- |:--------------:| -------------:|
+| recipeId      | int            | 84            |
+
+
+#### Returns
+Ok return request or [ErrorMessage](ErrorMessage.md)
 
 
 #### Error codes

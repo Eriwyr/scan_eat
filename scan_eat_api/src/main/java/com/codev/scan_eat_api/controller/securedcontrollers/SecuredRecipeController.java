@@ -3,7 +3,6 @@ package com.codev.scan_eat_api.controller.securedcontrollers;
 import com.codev.scan_eat_api.entities.recipe.Recipe;
 import com.codev.scan_eat_api.entities.User;
 import com.codev.scan_eat_api.entities.recipe.RecipeContent;
-import com.codev.scan_eat_api.entities.recipe.RecipeContentIdentity;
 import com.codev.scan_eat_api.entities.recipe.Serving;
 import com.codev.scan_eat_api.exceptions.ExceptionGenerator;
 import com.codev.scan_eat_api.exceptions.ScanEatException;
@@ -41,32 +40,30 @@ public class SecuredRecipeController {
 
     @GetMapping("/all")
     ResponseEntity<Object> all(@AuthenticationPrincipal final User user) {
-        return ResponseEntity.ok().body(recipeRepository.findAll());
+        if(user == null) {
+            return ResponseEntity.ok().body(recipeRepository.findAll());
+        }
+        return ResponseEntity.ok().body(recipeRepository.findAllByOwnerAndDeleted(user.getUsername(), false));
     }
 
     @GetMapping("/find")
     ResponseEntity<Object> find(@AuthenticationPrincipal final User user, @RequestParam("recipeId") final int recipeId) throws ScanEatException {
         Optional<Recipe> recipeOpt = recipeRepository.findById(recipeId);
-        if(!recipeOpt.isPresent()) {
+        if(!recipeOpt.isPresent() || recipeOpt.get().isDeleted()) {
             ExceptionGenerator.recipeNotFound(recipeId);
         }
         return ResponseEntity.ok(recipeOpt.get());
     }
 
     @Transactional
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     ResponseEntity<Object> delete(@AuthenticationPrincipal final User user, @RequestParam("recipeId") final int recipeId) throws ScanEatException {
         Optional<Recipe> recipeOpt = recipeRepository.findById(recipeId);
-        if(!recipeOpt.isPresent()) {
+        if(!recipeOpt.isPresent() || recipeOpt.get().isDeleted()) {
             ExceptionGenerator.recipeNotFound(recipeId);
         }
-        Recipe recipe = recipeOpt.get();
-
-        recipeIngredientRepository.deleteByRecipe(recipe);
-        /*for(RecipeContent rc : recipe.getIngredients()) {
-            recipeIngredientRepository.delete(new RecipeContentIdentity(recipe.getId(), rc.getIngredientBarcode()));
-        }*/
-        recipeRepository.delete(recipe);
+        recipeOpt.get().setDeleted(true);
+        recipeRepository.save(recipeOpt.get());
         return ResponseEntity.ok().build();
     }
 
