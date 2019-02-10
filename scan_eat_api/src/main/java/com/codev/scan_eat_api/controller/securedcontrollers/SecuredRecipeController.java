@@ -104,7 +104,6 @@ public class SecuredRecipeController {
         dbRecipe.setDeleted(true);
         recipeRepository.save(dbRecipe);
 
-
         return createOrUpdate(user, recipe);
     }
 

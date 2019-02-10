@@ -152,7 +152,7 @@ public class Serving {
 
     private double calculateProportionalNutriments(List<Pair<Double, Double>> l) {
         double maxQuantity = l.stream().map(Pair::getKey).reduce(0d, (q1, q2) -> q1+q2);
-        return l.stream().map(o -> ((o.getKey()/100)*o.getValue())*(o.getKey()/maxQuantity)).reduce(0d, (n1,n2) -> n1+n2)/l.size();
+        return l.stream().map(o -> (o.getValue())*(o.getKey()/maxQuantity)).reduce(0d, (n1,n2) -> n1+n2);
     }
 
     public List<RecipeContent> getContent() {
